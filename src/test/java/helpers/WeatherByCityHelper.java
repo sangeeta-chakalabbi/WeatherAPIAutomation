@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GetWeatherByCityHelper {
+public class WeatherByCityHelper {
     MainHelper mainHelper = new MainHelper();
     public String  responseBody;
 
@@ -33,5 +33,7 @@ public class GetWeatherByCityHelper {
         params.put("lon", longitude);
         return params;
     }
+
+
 
 }

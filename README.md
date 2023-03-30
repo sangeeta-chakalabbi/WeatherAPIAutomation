@@ -1,6 +1,9 @@
 # Project:
 This framework tests weather conditions using Rest APIs.
 
+## Project Structure
+![plot](src/test/resources/ReadmeDocs/ProjectStructure.png)
+
 ## Frameworks, Libraries and Tools and Frameworks used
 ```
 * RestAssured test framework

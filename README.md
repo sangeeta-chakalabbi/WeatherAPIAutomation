@@ -66,6 +66,21 @@ git clone https://github.com/sangeeta-chakalabbi/WeatherAPIAutomation.git
 ```
 ./src/test/java/logs/ApplicationLog
 ```
+## Test Data
+```
+1- Is provided under feature file
+    Scenario: Get weather data for multiple cities based on city ids
+    Given As a frequent flyer, I want to get current weather data for following cities in the world
+      | 4487042 |
+      | 4494942 |
+      | 4504871 |
+    Then I can verify the weather data for different cities
+    
+2- Sometimes it is provided as external csv file.
+    **src/test/resources/testData/australiaCapitalCities.csv**
+    **src/test/resources/testData/states.csv**
+```
+![plot](src/test/resources/ReadmeDocs/DataFile.png)
 
 ## Assumptions
 - Since we are covering just the happy paths at the moment. 

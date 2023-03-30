@@ -25,6 +25,9 @@ git clone https://github.com/sangeeta-chakalabbi/WeatherAPIAutomation.git
 * lombok
 * TestNG
 ```
+## Project Structure
+![plot](src/test/resources/ReadmeDocs/ProjectStructure.png)
+
 ## How This Framework Works:
 ```
 1.  The test Scenarios are captured using BDD way under feature files
@@ -62,8 +65,6 @@ git clone https://github.com/sangeeta-chakalabbi/WeatherAPIAutomation.git
 ```
 ./src/test/java/logs/ApplicationLog
 ```
-## Project Structure
-![plot](src/test/resources/ReadmeDocs/ProjectStructure.png)
 
 ## Assumptions
 - Since we are covering just the happy paths at the moment. 

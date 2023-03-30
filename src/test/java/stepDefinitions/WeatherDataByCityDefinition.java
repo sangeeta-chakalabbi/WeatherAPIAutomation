@@ -55,15 +55,19 @@ public class WeatherDataByCityDefinition {
         Assert.assertNotNull(weatherForCitiesJSON.getData().get(0).app_temp);
     }
 
+    @Then("I do not see weather data")
+    public void i_do_not_see_weather_data() {
+        Assert.assertEquals(weatherResponse,"");
+    }
+
     private void verifyWeatherDataForMultipleCities(WeatherForCities weatherForCitiesJSON) {
         Assert.assertTrue(weatherForCitiesJSON.count == 3);
+        Assert.assertNotNull(weatherForCitiesJSON.getData().get(0).app_temp);
     }
 
     private void verifyWeatherDataForACity(WeatherForCities weatherForCitiesJSON) {
         int i = weatherForCitiesJSON.count;
         Assert.assertTrue(weatherForCitiesJSON.count == 1);
+        Assert.assertNotNull(weatherForCitiesJSON.getData().get(0).app_temp);
     }
-
-
-
 }

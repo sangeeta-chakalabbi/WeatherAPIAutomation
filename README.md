@@ -28,8 +28,6 @@ git clone https://github.com/sangeeta-chakalabbi/WeatherAPIAutomation.git
 * lombok
 * TestNG
 ```
-## Project Structure
-![plot](src/test/resources/ReadmeDocs/ProjectStructure.png)
 
 ## How This Framework Works:
 ```

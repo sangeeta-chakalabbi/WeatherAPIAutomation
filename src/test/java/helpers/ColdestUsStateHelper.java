@@ -13,11 +13,6 @@ public class ColdestUsStateHelper {
     MainHelper mainHelper = new MainHelper();
     public String  responseBody;
 
-    public String getWeatherResponse(Map<String, String> param) {
-        responseBody = mainHelper.invokeGetAPI(param);
-        return responseBody;
-    }
-
     public List<HashMap<String, String>> readCSV(String myFile) throws Throwable {
         CSVReader reader = new CSVReaderBuilder(new FileReader(myFile)).build();
         List<String[]> myEntries = reader.readAll();

@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.util.Map;
 import java.util.Properties;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReaderHeaderAware;
 import io.restassured.response.Response;
+import model.WeatherForCities;
 import org.apache.log4j.Logger;
 
 
@@ -44,6 +46,12 @@ public class MainHelper {
 		String value = prop.getProperty(key);
 
 		return value;
+	}
+
+	public WeatherForCities convertJsonStringToJson(String weatherResponse) throws Throwable{
+		ObjectMapper mapper = new ObjectMapper();
+		WeatherForCities weatherForCitiesJSON = mapper.readValue(weatherResponse, WeatherForCities.class);
+		return weatherForCitiesJSON;
 	}
 
 

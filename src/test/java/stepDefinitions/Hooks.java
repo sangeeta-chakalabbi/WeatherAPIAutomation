@@ -23,7 +23,6 @@ public class Hooks {
 		baseURL = helper.getPropertyFromConfig(TestProperties.PARAM_BASE_URL);
 		key = helper.getPropertyFromConfig(TestProperties.KEY);
 		log.info("Setting up pre-requisites for the Test:=>"+"url:"+baseURL);
-
 	}
 	
 	@After

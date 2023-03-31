@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import helpers.ColdestUsStateHelper;
+import helpers.MainHelper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import model.WeatherForACity;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ColdestUsStateDefinition {
+public class ColdestUsState {
     WeatherForCities weatherForCitiesJSON;
     WeatherForACity weatherForACityJSON;
     ObjectMapper mapper = new ObjectMapper();
@@ -24,6 +25,7 @@ public class ColdestUsStateDefinition {
     boolean initializedBefore = false;
 
     ColdestUsStateHelper coldestUsStateHelper = new ColdestUsStateHelper();
+    MainHelper helper = new MainHelper();
     List<HashMap<String, String>> csvData;
 
     @Given("Given a list of US States in {string}")
@@ -35,8 +37,8 @@ public class ColdestUsStateDefinition {
         currentTemp = pastTemp;
         for(int i=0; i< csvData.size(); i++) {
             Map<String, String> param = coldestUsStateHelper.getStateAndCountryParam(csvData.get(i), "US");
-            weatherResponse = coldestUsStateHelper.getWeatherResponse(param);
-            weatherForCitiesJSON = convertJsonStringToJson(weatherResponse);
+            weatherResponse = helper.invokeGetAPI(param);;
+            weatherForCitiesJSON = helper.convertJsonStringToJson(weatherResponse);
             currentTemp = weatherForCitiesJSON.getData().get(0).app_temp;
             if(initializedBefore == false) {
                 coldestTemp = currentTemp;
@@ -54,9 +56,4 @@ public class ColdestUsStateDefinition {
         Assert.assertNotNull(coldestState);
     }
 
-    private WeatherForCities convertJsonStringToJson(String weatherResponse) throws Throwable{
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherForCities weatherForCitiesJSON = mapper.readValue(weatherResponse, WeatherForCities.class);
-        return weatherForCitiesJSON;
-    }
 }

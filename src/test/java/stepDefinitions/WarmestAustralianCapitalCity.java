@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import helpers.MainHelper;
 import helpers.WeatherByCityHelper;
 import helpers.WarmestCapitalCityHelper;
 import io.cucumber.java.en.Given;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WarmestAustralianCapitalCityDefinition {
+public class WarmestAustralianCapitalCity {
     WeatherByCityHelper weatherByCityHelper = new WeatherByCityHelper();
     WeatherForCities weatherForCitiesJSON;
     WeatherForACity weatherForACityJSON;
@@ -23,6 +24,7 @@ public class WarmestAustralianCapitalCityDefinition {
     Double warmestTemperature = 0.0;
 
     WarmestCapitalCityHelper warmestCapitalCityHelper = new WarmestCapitalCityHelper();
+    MainHelper helper = new MainHelper();
     List<HashMap<String, String>> csvData;
 
     @Given("Given a list of capital cities of Austrlia in {string}")
@@ -34,8 +36,8 @@ public class WarmestAustralianCapitalCityDefinition {
     public void i_get_weather_data_for_every_city() throws Throwable{
         for(int i=0; i< csvData.size(); i++) {
             Map<String, String> param = warmestCapitalCityHelper.getCityAndCountryParam(csvData.get(i), "AU");
-            weatherResponse = weatherByCityHelper.getWeatherResponse(param);
-            weatherForCitiesJSON = convertJsonStringToJson(weatherResponse);
+            weatherResponse = helper.invokeGetAPI(param);;
+            weatherForCitiesJSON = helper.convertJsonStringToJson(weatherResponse);
             if(weatherForCitiesJSON.getData().get(0).app_temp > warmestTemperature) {
                 warmestTemperature = weatherForCitiesJSON.getData().get(0).app_temp;
                 warmestCity = weatherForCitiesJSON.getData().get(0).city_name;
@@ -46,12 +48,6 @@ public class WarmestAustralianCapitalCityDefinition {
     @Then("I find the warmest city")
     public void i_find_the_warmest_city() {
         Assert.assertNotNull(warmestCity);
-    }
-
-    private WeatherForCities convertJsonStringToJson(String weatherResponse) throws Throwable{
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherForCities weatherForCitiesJSON = mapper.readValue(weatherResponse, WeatherForCities.class);
-        return weatherForCitiesJSON;
     }
 
 }

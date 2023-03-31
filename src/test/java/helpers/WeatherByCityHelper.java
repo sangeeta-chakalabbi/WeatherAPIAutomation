@@ -8,11 +8,6 @@ public class WeatherByCityHelper {
     MainHelper mainHelper = new MainHelper();
     public String  responseBody;
 
-    public String getWeatherResponse(Map<String, String> param) {
-        responseBody = mainHelper.invokeGetAPI(param);
-        return responseBody;
-    }
-
     public Map<String, String> getCitiesIdParameterInRequiredFormat(List<String> cities) {
         Map<String, String> params = new HashMap<String, String>();
 

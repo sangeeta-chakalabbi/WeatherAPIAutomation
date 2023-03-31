@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 
+import helpers.MainHelper;
 import helpers.WeatherByCityHelper;
 import io.cucumber.datatable.DataTable;
 import model.WeatherForCities;
@@ -11,8 +12,9 @@ import org.testng.Assert;
 
 import java.util.*;
 
-public class WeatherDataByCityDefinition {
+public class WeatherDataByCity {
     WeatherByCityHelper weatherByCityHelper = new WeatherByCityHelper();
+    MainHelper helper = new MainHelper();
     WeatherForCities weatherForCitiesJSON;
     ObjectMapper mapper = new ObjectMapper();
     String weatherResponse;
@@ -22,12 +24,12 @@ public class WeatherDataByCityDefinition {
     public void as_a_frequent_flyer_i_want_to_get_current_weather_data_for_following_cities_in_the_world(DataTable dataTable) {
         List<String> cities = dataTable.asList();
         Map<String, String> param = weatherByCityHelper.getCitiesIdParameterInRequiredFormat(cities);
-        weatherResponse = weatherByCityHelper.getWeatherResponse(param);
+        weatherResponse = helper.invokeGetAPI(param);
     }
 
     @Then("I can verify the weather data for different cities")
     public void i_can_verify_the_weather_data_for_different_cities() throws Throwable{
-        weatherForCitiesJSON = convertJsonStringToJson(weatherResponse);
+        weatherForCitiesJSON = helper.convertJsonStringToJson(weatherResponse);
         verifyWeatherDataForMultipleCities(weatherForCitiesJSON);
     }
 
@@ -35,19 +37,12 @@ public class WeatherDataByCityDefinition {
     @Given("As a frequent flyer, I want to get current weather data for the city at {double}, {double}")
     public void as_a_frequent_flyer_i_want_to_get_current_weather_data_for_the_city_at(double latitude, double longitude) {
         Map<String, String> param = weatherByCityHelper.getCitiesCordinateParameterInRequiredFormat(Double.toString(latitude), Double.toString(longitude));
-        weatherResponse = weatherByCityHelper.getWeatherResponse(param);
+        weatherResponse = helper.invokeGetAPI(param);
     }
     @Then("I can verify the weather data for a city")
     public void i_can_verify_the_weather_data_for_a_city() throws Throwable{
-        weatherForCitiesJSON = convertJsonStringToJson(weatherResponse);
+        weatherForCitiesJSON = helper.convertJsonStringToJson(weatherResponse);
         verifyWeatherDataForACity(weatherForCitiesJSON);
-    }
-
-
-    private WeatherForCities convertJsonStringToJson(String weatherResponse) throws Throwable{
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherForCities weatherForCitiesJSON = mapper.readValue(weatherResponse, WeatherForCities.class);
-        return weatherForCitiesJSON;
     }
 
     @Then("I can check for current temperature of the city")
